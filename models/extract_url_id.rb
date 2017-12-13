@@ -1,5 +1,5 @@
 class ExtractUrlId
   def self.call(collection_name, url)
-    url.match(%r{/#{collection_name}/(\d+)\z})[1]
+    url.to_s.match(%r{/#{collection_name}/(\d+)\z}) { |m| m[1] }
   end
 end
