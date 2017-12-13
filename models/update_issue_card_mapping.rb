@@ -4,7 +4,7 @@ class UpdateIssueCardMapping
     column_id    = ExtractUrlId.(:columns, card.column_url)
     column       = GithubProjectColumns.by_id(column_id)
     project_id   = ExtractUrlId.(:projects, column.project_url)
-    mapping      = IssueCardMapping.by_github_card_id(card.id) || IssueCardMapping.new
+    mapping      = IssueCardMapping.by_card_id(card.id) || IssueCardMapping.new
     issue_number = ExtractUrlId.(:issues, card.content_url)
 
     mapping.update(card_id: card.id, issue_number: issue_number, project_id: project_id)

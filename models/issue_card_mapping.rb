@@ -6,7 +6,7 @@ class IssueCardMapping < Ohm::Model
   index :card_id
   index :issue_number
 
-  def self.by_github_card_id(card_id)
+  def self.by_card_id(card_id)
     find(card_id: card_id).first
   end
 
