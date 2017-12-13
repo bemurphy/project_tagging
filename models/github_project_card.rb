@@ -14,4 +14,8 @@ class GithubProjectCard < SimpleDelegator
       GithubProjectColumn.by_id(column_id)
     end
   end
+
+  def issue_number
+    ExtractUrlId.(:issues, content_url)
+  end
 end
