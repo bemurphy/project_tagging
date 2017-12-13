@@ -14,7 +14,7 @@ class LabelsToColumn
     key = (MAPPING_ORDER.keys & label_names).last
 
     if column_name = MAPPING_ORDER[key]
-      GithubProjectColumns.project_column_by_name(@project_id, column_name)
+      GithubProjectColumn.project_column_by_name(@project_id, column_name)
     end
   end
 
