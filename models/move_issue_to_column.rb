@@ -1,4 +1,6 @@
 class MoveIssueToColumn
+  include OctokitConnection
+
   def self.handle_repo_issue_number(repo, number)
     issue = GithubIssue.by_number(repo, number)
 
@@ -20,10 +22,6 @@ class MoveIssueToColumn
     if card.column_url != column.url
       client.move_project_card(card.id, "bottom", column_id: column.id)
     end
-  end
-
- def client
-    GithubResource.client
   end
 
   def locate_issue_card(issue)

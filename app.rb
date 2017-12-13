@@ -32,7 +32,7 @@ Cuba.define do
   on post, "webhooks" do
     payload = JSON[req.params["payload"]]
 
-    if payload["issue"]
+    if payload["issue"] && payload["action"].to_s =~ /label/
       MoveIssueToColumn.handle_repo_issue_number(
         payload["repository"]["full_name"],
         payload["issue"]["number"]
@@ -43,5 +43,9 @@ Cuba.define do
     end
 
     res.write "ok"
+  end
+
+  on root do
+    res.write "OK"
   end
 end

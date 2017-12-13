@@ -9,8 +9,10 @@ require "scrivener"
 require "scrivener_errors"
 require "shield"
 
+ENV["OCTOKIT_SILENT"] = (ENV["OCTOKIT_SILENT"] != "false").to_s
+
 # Require all application files.
-require_relative "./models/github_resource"
+require_relative "./models/octokit_connection"
 Dir["./models/**/*.rb"].each  { |rb| require rb }
 Dir["./routes/**/*.rb"].each  { |rb| require rb }
 

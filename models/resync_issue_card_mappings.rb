@@ -1,4 +1,6 @@
 class ResyncIssueCardMappings
+  include OctokitConnection
+
   def call(repo_name)
     IssueCardMapping.all.to_a.map(&:delete)
 
@@ -16,11 +18,5 @@ class ResyncIssueCardMappings
         end
       end
     end
-  end
-
-  private
-
-  def client
-    GithubResource.client
   end
 end
