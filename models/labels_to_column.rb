@@ -10,6 +10,7 @@ class LabelsToColumn
     @labels     = labels
   end
 
+  # TODO inject the labels into here instead
   def column
     key = (MAPPING_ORDER.keys & label_names).last
 

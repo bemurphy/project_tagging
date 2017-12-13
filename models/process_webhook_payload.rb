@@ -1,6 +1,8 @@
 class ProcessWebhookPayload
   def self.call(payload)
-    if payload["project"] && payload["action"] == "created"
+    if payload["project_card"] && payload["action"] == "moved"
+      UpdateIssuesLabelsFromColumn.new.call(payload["project_card"]["id"])
+    elsif payload["project"] && payload["action"] == "created"
       project_id = payload["project"]["id"]
       CreateProjectTemplate.new.(project_id)
     elsif payload["issue"] && payload["action"].to_s =~ /label/

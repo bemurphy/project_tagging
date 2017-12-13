@@ -18,4 +18,14 @@ class GithubProjectCard < SimpleDelegator
   def issue_number
     ExtractUrlId.(:issues, content_url)
   end
+
+  def issue_repo
+    content_url.match(%r{/repos/(.+?)/issues/\d+\z}) { |m| m[1] }
+  end
+
+  def issue
+    if issue_repo && issue_number
+      GithubIssue.by_number(issue_repo, issue_number)
+    end
+  end
 end
