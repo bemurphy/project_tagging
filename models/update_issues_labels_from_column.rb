@@ -18,9 +18,12 @@ class UpdateIssuesLabelsFromColumn
     column = card.column
     issue  = card.issue
 
-    label_to_add = MAPPING[column.name]
-    new_labels   = ((issue.labels.map(&:name) - SPECIAL_LABELS) + [label_to_add]).compact
+    label_to_add    = MAPPING[column.name]
+    existing_labels = issue.labels.map(&:name)
+    new_labels      = ((existing_labels - SPECIAL_LABELS) + [label_to_add]).compact
 
-    client.replace_all_labels(issue.repo, issue.number, new_labels)
+    if existing_labels.sort != new_labels.sort
+      client.replace_all_labels(issue.repo, issue.number, new_labels)
+    end
   end
 end
