@@ -26,4 +26,14 @@ class UpdateIssuesLabelsFromColumn
       client.replace_all_labels(issue.repo, issue.number, new_labels)
     end
   end
+
+  class Handler < WebhookHandler
+    def self.handles?(payload)
+      payload["project_card"] && payload["action"] == "moved"
+    end
+
+    def self.call(payload)
+      UpdateIssuesLabelsFromColumn.new.call(payload["project_card"]["id"])
+    end
+  end
 end

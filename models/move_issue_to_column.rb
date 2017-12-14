@@ -29,4 +29,17 @@ class MoveIssueToColumn
       mapping.github_card
     end
   end
+
+  class Handler < WebhookHandler
+    def self.handles?(payload)
+      payload["issue"] && payload["action"].to_s =~ /label/
+    end
+
+    def self.call(payload)
+      MoveIssueToColumn.handle_repo_issue_number(
+        payload["repository"]["full_name"],
+        payload["issue"]["number"]
+      )
+    end
+  end
 end

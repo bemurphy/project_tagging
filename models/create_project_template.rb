@@ -22,4 +22,15 @@ class CreateProjectTemplate
       end
     end
   end
+
+  class Handler < WebhookHandler
+    def self.handles?(payload)
+      payload["project"] && payload["action"] == "created"
+    end
+
+    def self.call(payload)
+      project_id = payload["project"]["id"]
+      CreateProjectTemplate.new.(project_id)
+    end
+  end
 end

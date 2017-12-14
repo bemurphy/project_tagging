@@ -13,6 +13,7 @@ ENV["OCTOKIT_SILENT"] = (ENV["OCTOKIT_SILENT"] != "false").to_s
 
 # Require all application files.
 require_relative "./models/octokit_connection"
+require_relative "./models/webhook_handler"
 Dir["./models/**/*.rb"].each  { |rb| require rb }
 Dir["./routes/**/*.rb"].each  { |rb| require rb }
 
