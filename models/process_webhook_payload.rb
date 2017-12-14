@@ -10,7 +10,8 @@ class ProcessWebhookPayload
       CreateProjectTemplate::Handler,
       MoveIssueToColumn::Handler,
       IssueCardMapping::DeleteHandler,
-      IssueCardMapping::UpdateHandler
+      IssueCardMapping::UpdateHandler,
+      CardConversion::Handler
     ].freeze
   end
 end
