@@ -16,16 +16,27 @@ class GithubProjectCard < SimpleDelegator
   end
 
   def issue_number
-    ExtractUrlId.(:issues, content_url)
+    if has_content_url?
+      ExtractUrlId.(:issues, content_url)
+    end
   end
 
   def issue_repo
-    content_url.match(%r{/repos/(.+?)/issues/\d+\z}) { |m| m[1] }
+    if has_content_url?
+      content_url.match(%r{/repos/(.+?)/issues/\d+\z}) { |m| m[1] }
+    end
   end
 
   def issue
     if issue_repo && issue_number
       GithubIssue.by_number(issue_repo, issue_number)
     end
+  end
+
+  private
+
+  def has_content_url?
+    # A card with no issue has not content_url_method
+    respond_to?(:content_url)
   end
 end
